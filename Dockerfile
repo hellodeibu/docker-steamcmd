@@ -2,7 +2,11 @@ FROM ubuntu:18.04
 
 LABEL Name=docker-steamcmd Version=1.0.0 Maintainer="Dave Jansen - Pretty Basic"
 
+## Ports
+# Query Port cannot be between 27020 and 27050 due to Steam using those ports.
 ENV PORT_STEAM=27015
+
+## Other Settings
 ENV STEAMCMD_URL="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
 ENV USER_STEAM_ID=1000
 ENV DIR_STEAMCMD=/opt/steamcmd
@@ -46,7 +50,7 @@ RUN curl -sqL ${STEAMCMD_URL} | tar zxfv -
 
 # Announce the default Steam ports
 # Note: You should open game-specific ports, too.
-EXPOSE ${PORT_STEAM}/tcp ${PORT_STEAM}/udp
+EXPOSE ${PORT_STEAM}/udp
 
 # Optional: Initial run with anonymous login
 # This should stay disabled when using Docker Hub to auto-build, for example
