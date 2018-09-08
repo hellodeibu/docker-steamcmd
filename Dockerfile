@@ -5,6 +5,7 @@ LABEL Name=docker-steamcmd Version=1.0.0 Maintainer="Dave Jansen - Pretty Basic"
 ENV PORT_STEAM=27015
 ENV STEAMCMD_URL="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
 ENV USER_STEAM_ID=1000
+ENV DIR_STEAMCMD=/opt/steamcmd
 
 # For debugging purposes only
 ENV DEBUGGER=
@@ -32,10 +33,10 @@ RUN set -ex; \
 	  steam;
 
 # Create the directory SteamCMD will live in, and set its ownership
-RUN mkdir -p /opt/steamcmd
-RUN chown steam:steam /opt/steamcmd
+RUN mkdir -p $DIR_STEAMCMD
+RUN chown steam:steam $DIR_STEAMCMD
 
-WORKDIR /opt/steamcmd
+WORKDIR $DIR_STEAMCMD
 
 # Make sure everything is run as the Steam user
 USER steam
@@ -51,4 +52,4 @@ EXPOSE ${PORT_STEAM}/tcp ${PORT_STEAM}/udp
 # This should stay disabled when using Docker Hub to auto-build, for example
 #RUN [ "./steamcmd.sh", "+@NoPromptForPassword 1", "+login anonymous",  "+quit" ]
 
-ENTRYPOINT [ "/opt/steamcmd/steamcmd.sh" ]
+ENTRYPOINT [ "./steamcmd.sh" ]
