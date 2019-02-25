@@ -13,7 +13,7 @@ ENV \
   DIR_USER=/opt/user \
   DIR_APP=/opt/app
 
-# Start by updating and installing the required packages
+# Start by updating and installing required packages
 RUN set -ex; \
   apt-get -y update; \
   apt-get -y upgrade; \
@@ -40,6 +40,14 @@ RUN \
   curl -sqL ${STEAMCMD_URL} | tar zxfv -; \
   chown -R steam:steam ${DIR_STEAMCMD} ${DIR_GAME} ${DIR_USER} ${DIR_APP};
 
+# Adjust open file limitations
+# TODO: Check if we need all three methods or if one of them is enough.
+# RUN set -ex; \
+# 	ulimit -n 100000; \
+# 	sysctl -w fs.file-max=100000; \
+# 	echo "session required pam_limits.so" >> /etc/pam.d/common-session;
+
+
 # Make sure everything is run as the Steam user from the steam dir
 USER steam
 WORKDIR ${DIR_STEAMCMD}
@@ -49,7 +57,7 @@ WORKDIR ${DIR_STEAMCMD}
 EXPOSE ${PORT_STEAM}/udp
 
 # Optional: Initial run with anonymous login
-# This should stay disabled when using Docker Hub to auto-build, for example
+# Run SteamCMD to finalize installation — Disable this if you run this on something like Docker Hub as it will fail
 # RUN [ "./steamcmd.sh", "+@NoPromptForPassword 1", "+login anonymous",  "+quit" ]
 
 ENTRYPOINT [ "./steamcmd.sh" ]
