@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL Name=docker-steamcmd Version=1.5.0 Maintainer="Dave Jansen - Pretty Basic"
+LABEL Name=docker-steamcmd Version=1.0.0 Maintainer="Dave Jansen - Pretty Basic"
 
 ## Defaults
 # Note: Query Port cannot be between 27020 and 27050 due to Steam using those ports.

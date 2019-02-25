@@ -2,9 +2,9 @@
 
 Based on the Ubuntu 18.04 image. This is a barebones image designed to be used as a starting point for your own game-specific image.
 
-## v1.5 changes
+## v1.0
 
-The newer version greatly reduces the amount of steps required to build the image, and makes its purpose of being used as a pre-build step rather than the main image to be used more clear. While you can still certainly use this image directly, you'll more likely want to use this as one of your build steps instead.
+For the first "real" version I tried to greatly reduce the amount of steps required to build the image, and I made its purpose of being used as a pre-build step rather than the main image to be used more obvious. While you can still certainly use this image directly, you'll more likely want to use this as one of your build steps instead.
 
 ## Directories
 
